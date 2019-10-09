@@ -19,7 +19,7 @@ function luaEval (ast, parentTable) {
     for (var ii = 0; ii < ast.variables.length; ++ii) {
       var varInfo = ast.variables[ii]
       if (varInfo.type !== 'Identifier') {
-        console.log('Unknown variable type:', varInfo)
+        throw new Error('Unknown variable type:', varInfo)
       }
       parentTable[varInfo.name] = luaEval(ast.init[ii])
     }
@@ -45,6 +45,6 @@ function luaEval (ast, parentTable) {
   } else if (/Literal$/.test(ast.type)) {
     return ast.value
   } else {
-    console.log('Unknown type:', ast)
+    throw new Error('Unknown type:', ast)
   }
 }
